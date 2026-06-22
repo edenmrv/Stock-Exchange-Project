@@ -1,16 +1,30 @@
+function debounce(fn, delay) {
+  let timer;
+  return function (...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
 const input = document.getElementById("searchInput");
 const button = document.getElementById("searchBtn");
 const status = document.getElementById("status");
 const results = document.getElementById("results");
 
+const debouncedSearch = debounce(runSearch, 400);
+
 button.addEventListener("click", runSearch);
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") runSearch();
-});
+input.addEventListener("input", debouncedSearch);
 
 function runSearch() {
   const query = input.value.trim();
-  if (!query) return;
+
+  // Empty field: clear everything instead of searching for nothing
+  if (!query) {
+    results.innerHTML = "";
+    status.innerHTML = "";
+    return;
+  }
 
   results.innerHTML = "";
   status.innerHTML = `<div class="spinner"></div>`;

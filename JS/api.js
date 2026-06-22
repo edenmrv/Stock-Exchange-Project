@@ -4,6 +4,9 @@ const BASE_URL = "https://financialmodelingprep.com/api/v3";
 // Switch to false only when you want to test against the real API
 const USE_MOCK = true;
 
+// FMP allows up to ~50 symbols per batch request.
+const MAX_SYMBOLS_PER_REQUEST = 50;
+
 const MOCK_SEARCH = [
   { name: "Approach Resources Inc.", symbol: "AREX" },
   { name: "Apple Inc.", symbol: "AAPL" },
@@ -16,6 +19,7 @@ const MOCK_SEARCH = [
   { name: "Applied Therapeutics, Inc.", symbol: "APLT" },
   { name: "Digital Turbine Inc.", symbol: "APPS" }
 ];
+
 const MOCK_QUOTES = [
   { symbol: "AREX", changesPercentage: -26.56 },
   { symbol: "AAPL", changesPercentage: 4.64 },
@@ -28,30 +32,6 @@ const MOCK_QUOTES = [
   { symbol: "APLT", changesPercentage: 7.14 },
   { symbol: "APPS", changesPercentage: 18.49 }
 ];
-function getQuotes(symbols) {
-  if (USE_MOCK) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(MOCK_QUOTES), 300);
-    });
-  }
-
-  // Batch quote: all symbols in ONE call, comma separated
-  const list = symbols.join(",");
-  const url = `${BASE_URL}/quote/${list}?apikey=${API_KEY}`;
-  return fetch(url).then((res) => res.json());
-};
-
-function searchCompanies(query) {
-  if (USE_MOCK) {
-    // Fake a small delay so the loading spinner is actually visible
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(MOCK_SEARCH), 500);
-    });
-  }
-
-  const url = `${BASE_URL}/search?query=${encodeURIComponent(query)}&limit=10&exchange=NASDAQ&apikey=${API_KEY}`;
-  return fetch(url).then((res) => res.json());
-}
 
 const MOCK_PROFILE = {
   symbol: "AAON",
@@ -98,6 +78,46 @@ const MOCK_HISTORY = {
     { date: "1994-01-26", close: 0.5 }
   ]
 };
+
+function searchCompanies(query) {
+  if (USE_MOCK) {
+    // Fake a small delay so the loading spinner is actually visible
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(MOCK_SEARCH), 500);
+    });
+  }
+
+  const url = `${BASE_URL}/search?query=${encodeURIComponent(query)}&limit=10&exchange=NASDAQ&apikey=${API_KEY}`;
+  return fetch(url).then((res) => res.json());
+}
+
+function getQuotes(symbols) {
+  if (USE_MOCK) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(MOCK_QUOTES), 300);
+    });
+  }
+
+  // Split the symbols into chunks and fire all chunks in parallel
+  const chunks = chunkArray(symbols, MAX_SYMBOLS_PER_REQUEST);
+
+  const requests = chunks.map((chunk) => {
+    const list = chunk.join(",");
+    const url = `${BASE_URL}/quote/${list}?apikey=${API_KEY}`;
+    return fetch(url).then((res) => res.json());
+  });
+
+  // Each request resolves to an array; flatten them into one array
+  return Promise.all(requests).then((responses) => responses.flat());
+}
+
+function chunkArray(items, size) {
+  const chunks = [];
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size));
+  }
+  return chunks;
+}
 
 function getCompanyProfile(symbol) {
   if (USE_MOCK) {

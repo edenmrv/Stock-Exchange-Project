@@ -1,0 +1,108 @@
+:root {
+  --bg: #f4f5fb;
+  --card: #ffffff;
+  --text: #1f2330;
+  --muted: #8a90a2;
+  --accent: #5b5bd6;
+  --accent-dark: #4848b8;
+  --border: #ececf3;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 60px 16px;
+}
+
+.card {
+  background: var(--card);
+  width: 100%;
+  max-width: 660px;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(40, 40, 90, 0.08);
+  padding: 28px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+#searchInput {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#searchInput:focus { border-color: var(--accent); }
+
+#searchBtn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+#searchBtn:hover { background: var(--accent-dark); }
+
+.status {
+  margin-top: 20px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  margin: 10px auto;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.results {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+
+.results li a {
+  display: block;
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: background 0.12s, padding-left 0.12s;
+}
+
+.results li a:hover {
+  background: #f6f6fd;
+  padding-left: 18px;
+}
+
+.symbol {
+  color: var(--muted);
+  font-weight: 500;
+}

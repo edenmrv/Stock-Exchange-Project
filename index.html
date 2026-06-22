@@ -8,25 +8,28 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="ticker"></div>
+  <div id="marquee"></div>
 
   <main class="card">
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search company...">
-      <button id="searchBtn">Search</button>
-    </div>
-
-    <div id="status" class="status"></div>
-    <ul id="results" class="results"></ul>
+    <h2 class="page-title">Search Nasdaq Stocks</h2>
+    <div id="form"></div>
+    <div id="results"></div>
   </main>
 
   <script type="module">
     import { Marquee } from "./js/Marquee.js";
+    import { SearchForm } from "./js/SearchForm.js";
+    import { SearchResult } from "./js/SearchResult.js";
 
-    const ticker = new Marquee(document.getElementById("ticker"));
-    ticker.load();
+    const marquee = new Marquee(document.getElementById("marquee"));
+    marquee.load();
+
+    const form = new SearchForm(document.getElementById("form"));
+    const results = new SearchResult(document.getElementById("results"));
+
+    form.onSearch((companies) => {
+      results.renderResults(companies);
+    });
   </script>
-
-  <script type="module" src="js/search.js"></script>
 </body>
 </html>

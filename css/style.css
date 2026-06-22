@@ -106,3 +106,58 @@ body {
   color: var(--muted);
   font-weight: 500;
 }
+.hidden { display: none; }
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover { color: var(--accent); }
+
+.company-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.company-title {
+  color: var(--accent);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.price {
+  font-size: 22px;
+  margin: 22px 0;
+}
+
+.change { font-weight: 600; }
+.change.up { color: #16a34a; }
+.change.down { color: #dc2626; }
+
+.description {
+  color: #4b5163;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+.website {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.website:hover { text-decoration: underline; }
+
+.chart-wrap { margin-top: 30px; }

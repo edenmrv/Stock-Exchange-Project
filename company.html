@@ -8,7 +8,32 @@
 </head>
 <body>
   <main class="card">
-    <p>Company page</p>
+    <a href="index.html" class="back-link">&larr; Back to search</a>
+
+    <div id="status" class="status"></div>
+
+    <div id="company" class="company hidden">
+      <header class="company-header">
+        <img id="logo" class="logo" alt="">
+        <h1 id="title" class="company-title"></h1>
+      </header>
+
+      <p class="price">
+        Stock price: <span id="price"></span>
+        <span id="change" class="change"></span>
+      </p>
+
+      <p id="description" class="description"></p>
+      <a id="website" class="website" target="_blank" rel="noopener">Visit website</a>
+
+      <div class="chart-wrap">
+        <canvas id="priceChart"></canvas>
+      </div>
+    </div>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+  <script src="js/api.js"></script>
+  <script src="js/company.js"></script>
 </body>
 </html>

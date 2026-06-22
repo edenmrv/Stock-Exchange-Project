@@ -96,7 +96,7 @@ const MOCK_TICKER = [
   { symbol: "NVDA", price: 138.6, changesPercentage: 3.91 }
 ];
 
-function getTicker() {
+export function getTicker() {
   if (USE_MOCK) {
     return new Promise((resolve) => {
       setTimeout(() => resolve(MOCK_TICKER), 300);
@@ -108,7 +108,7 @@ function getTicker() {
   return fetch(url).then((res) => res.json());
 }
 
-function searchCompanies(query) {
+export function searchCompanies(query) {
   if (USE_MOCK) {
     // Fake a small delay so the loading spinner is actually visible
     return new Promise((resolve) => {
@@ -120,7 +120,7 @@ function searchCompanies(query) {
   return fetch(url).then((res) => res.json());
 }
 
-function getQuotes(symbols) {
+export function getQuotes(symbols) {
   if (USE_MOCK) {
     return new Promise((resolve) => {
       setTimeout(() => resolve(MOCK_QUOTES), 300);
@@ -148,7 +148,7 @@ function chunkArray(items, size) {
   return chunks;
 }
 
-function getCompanyProfile(symbol) {
+export function getCompanyProfile(symbol) {
   if (USE_MOCK) {
     return new Promise((resolve) => {
       setTimeout(() => resolve(MOCK_PROFILE), 500);
@@ -159,7 +159,7 @@ function getCompanyProfile(symbol) {
   return fetch(url).then((res) => res.json());
 }
 
-function getStockHistory(symbol) {
+export function getStockHistory(symbol) {
   if (USE_MOCK) {
     return new Promise((resolve) => {
       setTimeout(() => resolve(MOCK_HISTORY), 500);

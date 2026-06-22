@@ -8,21 +8,25 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-   <div id="ticker" class="ticker">
-    <div id="tickerTrack" class="ticker-track"></div>
-  </div>
+  <div id="ticker"></div>
 
   <main class="card">
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="Search company...">
       <button id="searchBtn">Search</button>
     </div>
+
     <div id="status" class="status"></div>
     <ul id="results" class="results"></ul>
   </main>
-  <script src="js/api.js"></script>
-  <script src="js/ticker.js"></script>
-  <script src="js/search.js"></script>
 
+  <script type="module">
+    import { Marquee } from "./js/Marquee.js";
+
+    const ticker = new Marquee(document.getElementById("ticker"));
+    ticker.load();
+  </script>
+
+  <script type="module" src="js/search.js"></script>
 </body>
 </html>

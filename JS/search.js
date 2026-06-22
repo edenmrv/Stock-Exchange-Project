@@ -1,3 +1,4 @@
+import { searchCompanies, getQuotes } from "./api.js";
 function debounce(fn, delay) {
   let timer;
   return function (...args) {

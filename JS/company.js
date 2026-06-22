@@ -1,3 +1,4 @@
+import { getCompanyProfile, getStockHistory } from "./api.js";
 const params = new URLSearchParams(window.location.search);
 const symbol = params.get("symbol");
 

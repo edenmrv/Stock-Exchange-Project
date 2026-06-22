@@ -78,6 +78,35 @@ const MOCK_HISTORY = {
     { date: "1994-01-26", close: 0.5 }
   ]
 };
+const MOCK_TICKER = [
+  { symbol: "AAPL", price: 257.13, changesPercentage: 4.64 },
+  { symbol: "AMAT", price: 188.42, changesPercentage: 4.27 },
+  { symbol: "NTAP", price: 121.05, changesPercentage: 0.94 },
+  { symbol: "APPN", price: 63.88, changesPercentage: 8.47 },
+  { symbol: "GIII", price: 28.91, changesPercentage: 3.27 },
+  { symbol: "AAOI", price: 41.37, changesPercentage: -0.21 },
+  { symbol: "APPF", price: 214.6, changesPercentage: 0.03 },
+  { symbol: "APLT", price: 9.12, changesPercentage: 7.14 },
+  { symbol: "APPS", price: 5.44, changesPercentage: 18.49 },
+  { symbol: "AREX", price: 1.18, changesPercentage: -26.56 },
+  { symbol: "MSFT", price: 511.7, changesPercentage: 1.12 },
+  { symbol: "GOOG", price: 178.3, changesPercentage: -0.88 },
+  { symbol: "AMZN", price: 224.95, changesPercentage: 2.05 },
+  { symbol: "META", price: 612.4, changesPercentage: -1.34 },
+  { symbol: "NVDA", price: 138.6, changesPercentage: 3.91 }
+];
+
+function getTicker() {
+  if (USE_MOCK) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(MOCK_TICKER), 300);
+    });
+  }
+
+  // Returns all NASDAQ quotes
+  const url = `${BASE_URL}/quotes/NASDAQ?apikey=${API_KEY}`;
+  return fetch(url).then((res) => res.json());
+}
 
 function searchCompanies(query) {
   if (USE_MOCK) {

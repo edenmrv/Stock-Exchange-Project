@@ -4,20 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stock Exchange</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text x='0' y='14' font-size='14'>📈</text></svg>">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+   <div id="ticker" class="ticker">
+    <div id="tickerTrack" class="ticker-track"></div>
+  </div>
+
   <main class="card">
     <div class="search-bar">
       <input type="text" id="searchInput" placeholder="Search company...">
       <button id="searchBtn">Search</button>
     </div>
-
     <div id="status" class="status"></div>
     <ul id="results" class="results"></ul>
   </main>
-
   <script src="js/api.js"></script>
+  <script src="js/ticker.js"></script>
   <script src="js/search.js"></script>
+
 </body>
 </html>

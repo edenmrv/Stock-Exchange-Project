@@ -87,8 +87,10 @@ body {
 }
 
 .results li a {
-  display: block;
-  padding: 16px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 12px;
   border-bottom: 1px solid var(--border);
   color: var(--accent);
   text-decoration: none;
@@ -102,10 +104,24 @@ body {
   padding-left: 18px;
 }
 
+.result-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.result-name { font-weight: 500; }
+
+.results .change {
+  font-size: 14px;
+}
+
 .symbol {
   color: var(--muted);
   font-weight: 500;
 }
+
 .hidden { display: none; }
 
 .back-link {
@@ -160,4 +176,4 @@ body {
 
 .website:hover { text-decoration: underline; }
 
-.chart-wrap { margin-top: 30px; }
+.chart-wrap { margin-top: 30px; } 

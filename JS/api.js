@@ -5,17 +5,41 @@ const BASE_URL = "https://financialmodelingprep.com/api/v3";
 const USE_MOCK = true;
 
 const MOCK_SEARCH = [
-  { name: "AAON, Inc.", symbol: "AAON" },
+  { name: "Approach Resources Inc.", symbol: "AREX" },
   { name: "Apple Inc.", symbol: "AAPL" },
-  { name: "Axon Enterprise, Inc.", symbol: "AAXN" },
-  { name: "Atlas Air Worldwide Holdings, Inc.", symbol: "AAWW" },
-  { name: "American Airlines Group Inc.", symbol: "AAL" },
-  { name: "Applied Optoelectronics, Inc.", symbol: "AAOI" },
-  { name: "STAAR Surgical Company", symbol: "STAA" },
-  { name: "Conyers Park II Acquisition Corp.", symbol: "CPAAW" },
-  { name: "First Trust Alternative Absolute Return Strategy ETF", symbol: "FAAR" },
-  { name: "Goldman Sachs Physical Gold ETF", symbol: "AAAU" }
+  { name: "Applied Optoelectronics Inc.", symbol: "AAOI" },
+  { name: "Applied Materials Inc.", symbol: "AMAT" },
+  { name: "G-III Apparel Group LTD.", symbol: "GIII" },
+  { name: "AppFolio Inc.", symbol: "APPF" },
+  { name: "NetApp Inc.", symbol: "NTAP" },
+  { name: "Appian Corporation", symbol: "APPN" },
+  { name: "Applied Therapeutics, Inc.", symbol: "APLT" },
+  { name: "Digital Turbine Inc.", symbol: "APPS" }
 ];
+const MOCK_QUOTES = [
+  { symbol: "AREX", changesPercentage: -26.56 },
+  { symbol: "AAPL", changesPercentage: 4.64 },
+  { symbol: "AAOI", changesPercentage: -0.21 },
+  { symbol: "AMAT", changesPercentage: 4.27 },
+  { symbol: "GIII", changesPercentage: 3.27 },
+  { symbol: "APPF", changesPercentage: 0.03 },
+  { symbol: "NTAP", changesPercentage: 0.94 },
+  { symbol: "APPN", changesPercentage: 8.47 },
+  { symbol: "APLT", changesPercentage: 7.14 },
+  { symbol: "APPS", changesPercentage: 18.49 }
+];
+function getQuotes(symbols) {
+  if (USE_MOCK) {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(MOCK_QUOTES), 300);
+    });
+  }
+
+  // Batch quote: all symbols in ONE call, comma separated
+  const list = symbols.join(",");
+  const url = `${BASE_URL}/quote/${list}?apikey=${API_KEY}`;
+  return fetch(url).then((res) => res.json());
+};
 
 function searchCompanies(query) {
   if (USE_MOCK) {

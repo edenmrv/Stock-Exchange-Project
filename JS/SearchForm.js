@@ -7,7 +7,6 @@ export class SearchForm {
     this.render();
   }
 
-  // Build the input + button inside the host element
   render() {
     this.element.innerHTML = `
       <div class="search-bar">
@@ -27,7 +26,6 @@ export class SearchForm {
     this.input.addEventListener("input", debouncedSearch);
   }
 
-  // Register the callback that receives the found companies
   onSearch(callback) {
     this.callback = callback;
   }
@@ -35,9 +33,10 @@ export class SearchForm {
   runSearch() {
     const query = this.input.value.trim();
 
+    // Empty field: clear results and bail out
     if (!query) {
       this.status.innerHTML = "";
-      if (this.callback) this.callback([]);
+      if (this.callback) this.callback([], query);
       return;
     }
 
@@ -61,11 +60,11 @@ export class SearchForm {
 
         if (foundCompanies.length === 0) {
           this.status.textContent = "No results found";
-          if (this.callback) this.callback([]);
+          if (this.callback) this.callback([], query);
           return;
         }
 
-        // Merge the change percentage into each company object
+        // Attach each symbol's change percentage to its company
         const changes = {};
         quotes.forEach((quote) => {
           changes[quote.symbol] = quote.changesPercentage;
@@ -76,7 +75,8 @@ export class SearchForm {
           changesPercentage: changes[company.symbol]
         }));
 
-        if (this.callback) this.callback(enriched);
+        // Pass the query too, so results can highlight the match
+        if (this.callback) this.callback(enriched, query);
       })
       .catch(() => {
         this.status.textContent = "Something went wrong. Try again.";

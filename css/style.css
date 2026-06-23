@@ -218,3 +218,9 @@ body {
   margin: 0 0 22px;
   color: var(--text);
 }
+.results mark {
+  background: #fde68a;
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 3px;
+}

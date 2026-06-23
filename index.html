@@ -27,8 +27,9 @@
     const form = new SearchForm(document.getElementById("form"));
     const results = new SearchResult(document.getElementById("results"));
 
-    form.onSearch((companies) => {
-      results.renderResults(companies);
+    // Form hands the found companies + query over to the results view
+    form.onSearch((companies, query) => {
+      results.renderResults(companies, query);
     });
   </script>
 </body>

@@ -3,7 +3,7 @@ export class SearchResult {
     this.element = element;
   }
 
-  renderResults(companies) {
+  renderResults(companies, query) {
     this.element.innerHTML = "";
 
     if (!companies || companies.length === 0) {
@@ -14,13 +14,13 @@ export class SearchResult {
     list.className = "results";
 
     companies.forEach((company) => {
-      list.appendChild(this.buildItem(company));
+      list.appendChild(this.buildItem(company, query));
     });
 
     this.element.appendChild(list);
   }
 
-  buildItem(company) {
+  buildItem(company, query) {
     const li = document.createElement("li");
 
     const link = document.createElement("a");
@@ -34,11 +34,11 @@ export class SearchResult {
 
     const name = document.createElement("span");
     name.className = "result-name";
-    name.textContent = company.name;
+    name.innerHTML = this.highlight(company.name, query);
 
     const symbol = document.createElement("span");
     symbol.className = "symbol";
-    symbol.textContent = ` (${company.symbol})`;
+    symbol.innerHTML = ` (${this.highlight(company.symbol, query)})`;
 
     const change = document.createElement("span");
     const value = parseFloat(company.changesPercentage);
@@ -51,5 +51,26 @@ export class SearchResult {
     link.append(logo, name, symbol, change);
     li.appendChild(link);
     return li;
+  }
+
+  // Wrap the matched part in <mark>, keeping the original letters
+  highlight(text, query) {
+    const safeText = this.escapeHtml(text);
+    if (!query) return safeText;
+
+    const regex = new RegExp(`(${this.escapeRegex(query)})`, "gi");
+    return safeText.replace(regex, "<mark>$1</mark>");
+  }
+
+  // Stop raw API text from being parsed as HTML
+  escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Neutralize regex-special characters in the user's input
+  escapeRegex(text) {
+    return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 }

@@ -86,12 +86,20 @@ body {
   padding: 0;
 }
 
+/* The row holds both the link and the compare button */
+.results li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
 .results li a {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex: 1;
   padding: 14px 12px;
-  border-bottom: 1px solid var(--border);
   color: var(--accent);
   text-decoration: none;
   font-size: 18px;
@@ -120,6 +128,25 @@ body {
 .symbol {
   color: var(--muted);
   font-weight: 500;
+}
+
+.compare-btn {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.compare-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
 }
 
 .hidden { display: none; }
@@ -176,7 +203,8 @@ body {
 
 .website:hover { text-decoration: underline; }
 
-.chart-wrap { margin-top: 30px; } 
+.chart-wrap { margin-top: 30px; }
+
 .ticker {
   width: 100%;
   background: #1f2330;
@@ -211,6 +239,7 @@ body {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
 .page-title {
   text-align: center;
   font-size: 28px;
@@ -218,6 +247,7 @@ body {
   margin: 0 0 22px;
   color: var(--text);
 }
+
 .results mark {
   background: #fde68a;
   color: inherit;

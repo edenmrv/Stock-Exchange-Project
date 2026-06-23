@@ -31,6 +31,11 @@
     form.onSearch((companies, query) => {
       results.renderResults(companies, query);
     });
+
+    // For now just log the clicked company - we'll use it in a later step
+    results.onCompare((company) => {
+      console.log("Compare clicked:", company);
+    });
   </script>
 </body>
 </html>

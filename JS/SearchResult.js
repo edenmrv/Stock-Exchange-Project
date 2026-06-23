@@ -1,6 +1,12 @@
 export class SearchResult {
   constructor(element) {
     this.element = element;
+    this.compareCallback = null;
+  }
+
+  // Register a callback that fires when a Compare button is clicked
+  onCompare(callback) {
+    this.compareCallback = callback;
   }
 
   renderResults(companies, query) {
@@ -49,7 +55,15 @@ export class SearchResult {
     }
 
     link.append(logo, name, symbol, change);
-    li.appendChild(link);
+
+    const compareBtn = document.createElement("button");
+    compareBtn.className = "compare-btn";
+    compareBtn.textContent = "Compare";
+    compareBtn.addEventListener("click", () => {
+      if (this.compareCallback) this.compareCallback(company);
+    });
+
+    li.append(link, compareBtn);
     return li;
   }
 

@@ -1,10 +1,15 @@
 export class CompareList {
-  constructor(element) {
+  constructor(element, maxItems = 3) {
     this.element = element;
+    this.maxItems = maxItems;
     this.storageKey = "compareList";
     // Persisted in localStorage so the list survives the jump to compare.html
-    this.companies = this.loadFromStorage();
+    this.companies = this.loadFromStorage().slice(0, this.maxItems);
     this.render();
+  }
+
+  isFull() {
+    return this.companies.length >= this.maxItems;
   }
 
   loadFromStorage() {
@@ -20,9 +25,10 @@ export class CompareList {
     localStorage.setItem(this.storageKey, JSON.stringify(this.companies));
   }
 
-  // Add a company unless it's already in the list
+  // Add a company unless it's already in the list or the list is full
   add(company) {
     if (this.has(company.symbol)) return false;
+    if (this.isFull()) return false;
     this.companies.push({ symbol: company.symbol, name: company.name });
     this.save();
     this.render();
@@ -75,6 +81,10 @@ export class CompareList {
       chips.appendChild(chip);
     });
 
+    const count = document.createElement("span");
+    count.className = "compare-count";
+    count.textContent = `${this.companies.length}/${this.maxItems}`;
+
     // Compare button at the right end -> new page with the chosen symbols
     const goBtn = document.createElement("a");
     goBtn.className = "compare-go";
@@ -82,6 +92,13 @@ export class CompareList {
     const symbols = this.companies.map((company) => company.symbol).join(",");
     goBtn.href = `compare.html?symbols=${encodeURIComponent(symbols)}`;
 
-    this.element.append(chips, goBtn);
+    this.element.append(chips, count, goBtn);
+  }
+
+  // Briefly highlight the bar to signal the limit was reached
+  flashFull() {
+    this.element.classList.remove("hidden");
+    this.element.classList.add("is-full");
+    setTimeout(() => this.element.classList.remove("is-full"), 500);
   }
 }

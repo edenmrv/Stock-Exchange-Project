@@ -304,6 +304,20 @@ body {
 
 .compare-chip:hover .chip-x { opacity: 1; }
 
+.compare-count {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Brief red highlight when the user tries to exceed the limit */
+.compare-bar.is-full {
+  border-color: #dc2626;
+  background: #fef2f2;
+  transition: background 0.15s, border-color 0.15s;
+}
+
 .compare-go {
   flex-shrink: 0;
   padding: 8px 18px;

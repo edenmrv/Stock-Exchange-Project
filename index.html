@@ -35,9 +35,13 @@
       results.renderResults(companies, query);
     });
 
-    // Clicking Compare adds the company to the comparison bar
+    // Clicking Compare adds the company to the comparison bar (max 3)
     results.onCompare((company) => {
-      compareList.add(company);
+      const added = compareList.add(company);
+      // Already at the limit and it's a new company: flash the bar
+      if (!added && !compareList.has(company.symbol)) {
+        compareList.flashFull();
+      }
     });
   </script>
 </body>

@@ -11,6 +11,7 @@
   <div id="marquee"></div>
 
   <main class="card">
+    <div id="compareBar" class="compare-bar hidden"></div>
     <h2 class="page-title">Search Nasdaq Stocks</h2>
     <div id="form"></div>
     <div id="results"></div>
@@ -20,21 +21,23 @@
     import { Marquee } from "./js/Marquee.js";
     import { SearchForm } from "./js/SearchForm.js";
     import { SearchResult } from "./js/SearchResult.js";
+    import { CompareList } from "./js/CompareList.js";
 
     const marquee = new Marquee(document.getElementById("marquee"));
     marquee.load();
 
     const form = new SearchForm(document.getElementById("form"));
     const results = new SearchResult(document.getElementById("results"));
+    const compareList = new CompareList(document.getElementById("compareBar"));
 
     // Form hands the found companies + query over to the results view
     form.onSearch((companies, query) => {
       results.renderResults(companies, query);
     });
 
-    // For now just log the clicked company - we'll use it in a later step
+    // Clicking Compare adds the company to the comparison bar
     results.onCompare((company) => {
-      console.log("Compare clicked:", company);
+      compareList.add(company);
     });
   </script>
 </body>

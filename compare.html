@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare Companies</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text x='0' y='14' font-size='14'>📈</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="card card-wide">
+    <a href="index.html" class="back-link">&larr; Back to search</a>
+    <h2 class="page-title">Compare Companies</h2>
+    <div id="compare"></div>
+  </main>
+
+  <script type="module">
+    import { CompareView } from "./js/CompareView.js";
+
+    const params = new URLSearchParams(location.search);
+    const symbols = (params.get("symbols") || "")
+      .split(",")
+      .map((symbol) => symbol.trim())
+      .filter(Boolean);
+
+    const view = new CompareView(document.getElementById("compare"), symbols);
+    view.load();
+  </script>
+</body>
+</html>

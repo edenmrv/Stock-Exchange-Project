@@ -254,3 +254,120 @@ body {
   padding: 0 1px;
   border-radius: 3px;
 }
+
+/* Comparison bar (above the page title) */
+.compare-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  padding: 12px;
+  background: #f6f6fd;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.compare-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+
+.compare-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.compare-chip:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.chip-x {
+  font-size: 16px;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.compare-chip:hover .chip-x { opacity: 1; }
+
+.compare-go {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.compare-go:hover { background: var(--accent-dark); }
+
+/* Comparison page */
+.card-wide { max-width: 980px; }
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.compare-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.compare-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.compare-name {
+  font-size: 18px;
+  margin: 12px 0 2px;
+  color: var(--text);
+}
+
+.compare-symbol {
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 14px;
+}
+
+.compare-stats {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  margin: 0 0 16px;
+  text-align: left;
+}
+
+.compare-stats dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.compare-stats dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
